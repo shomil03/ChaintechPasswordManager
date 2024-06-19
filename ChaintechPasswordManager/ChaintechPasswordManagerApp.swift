@@ -11,7 +11,7 @@ import SwiftUI
 struct ChaintechPasswordManagerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            HomeView()
         }
     }
 }
