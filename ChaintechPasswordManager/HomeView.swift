@@ -6,54 +6,56 @@
 //
 
 import SwiftUI
+import SwiftData
 
 struct HomeView: View {
-    enum sheetType : String , Identifiable {
-        case edit , add
-        var id: String { rawValue }
-    }
-    @State var isShowingsheet : sheetType?
+    @Environment(\.modelContext) var modelContext
+//    var credentials : [Credentials]
+    @Query var credentials : [Credentials]
+    @State var viewmodel = ViewModel()
     var body: some View {
-        NavigationStack(){
+        NavigationStack{
             Rectangle()
                 .frame(height: 0.5)
                 .padding(.top)
             ScrollView{
-                ForEach(MockData.allCredentials , id: \.website) {credential in
+                ForEach(credentials) {credential in
                     
                     Button(action: {
-                        isShowingsheet = .edit
+                        viewmodel.selectedCredential = credential
+                        viewmodel.selectedSheetType = .edit
+                        viewmodel.isShowingsheet = true
                     }, label: {
                      CredentialView(credentail: credential)
                     })
                     .padding(.vertical)
                     .foregroundStyle(Color.primary)
-                    
-                    
-                    
-                    .sheet(item:  $isShowingsheet, content: {sheet in
-                        switch sheet{
-                            case .edit:
-                                AccountView(credential: credential)
-                                    .presentationDetents([.medium])
-                            case .add:
-                                AddAccount()
-                                    .presentationDetents([.medium])
-                        }
-                    })
-                    
-                    
                 }
+                .sheet(item: $viewmodel.selectedSheetType, content: {sheet in
+                    switch sheet{
+                        case .add:
+                            AddAccount()
+                                .presentationDetents([.medium])
+                        case .edit:
+                            AccountView(credential: viewmodel.selectedCredential ?? Credentials(id: UUID(), website: "", Username: "", Password: ""))
+                                .presentationDetents([.medium])
+                    }
+                })
                 
             }
+            .frame(maxWidth: .infinity)
             .overlay(
-                Button(action: {isShowingsheet = .add}, label: {
+                Button(action: {
+                    viewmodel.selectedSheetType = .add
+                    viewmodel.isShowingsheet = true
+                    }, label: {
                     Image(systemName: "plus.circle.fill")
                         .font(.system(size: 50))
                 })
                     .padding()
                     .padding(.trailing)
                 ,alignment: .bottomTrailing)
+            
             .navigationTitle("Password Manager")
             .preferredColorScheme(.light)
         }

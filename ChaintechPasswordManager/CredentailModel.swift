@@ -6,13 +6,21 @@
 //
 
 import Foundation
+import SwiftData
 
-struct Credentials : Identifiable , Hashable {
-    var id : UUID
+@Model
+class Credentials {
+    let id : UUID = UUID()
+    let website : String = ""
+    let Username : String = ""
+    let Password : String = ""
     
-    let website : String
-    let Username : String
-    let Password : String
+    init(id: UUID , website : String , Username : String , Password : String) {
+        self.id = id
+        self.website = website
+        self.Password = Password
+        self.Username = Username
+    }
 }
 
 struct MockData {

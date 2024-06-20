@@ -6,10 +6,9 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct AccountView: View {
     var credential : Credentials
-    
     @State var showPassword = false
     var body: some View {
         NavigationStack{
@@ -65,7 +64,9 @@ struct AccountView: View {
                 }
                 
                 HStack{
-                    Button(action: {}, label: {
+                    Button(action: {
+                        
+                    }, label: {
                         ButtonView(buttonText: "Edit", height: 50, width: 170, backColor: .black)
                             .shadow(radius: 10)
                     })

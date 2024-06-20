@@ -16,6 +16,7 @@
 		4F4CF10D2C23215F0054CC5A /* AccountView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F4CF10C2C23215F0054CC5A /* AccountView.swift */; };
 		4F66F8852C24537F004D3CC4 /* AddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8842C24537F004D3CC4 /* AddAccount.swift */; };
 		4F66F8872C2454FE004D3CC4 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8862C2454FE004D3CC4 /* ButtonView.swift */; };
+		4F66F8892C249A83004D3CC4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8882C249A83004D3CC4 /* ViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +30,7 @@
 		4F4CF10C2C23215F0054CC5A /* AccountView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountView.swift; sourceTree = "<group>"; };
 		4F66F8842C24537F004D3CC4 /* AddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccount.swift; sourceTree = "<group>"; };
 		4F66F8862C2454FE004D3CC4 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
+		4F66F8882C249A83004D3CC4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -63,6 +65,7 @@
 			children = (
 				4F4CF0FA2C2313220054CC5A /* ChaintechPasswordManagerApp.swift */,
 				4F4CF0FC2C2313220054CC5A /* HomeView.swift */,
+				4F66F8882C249A83004D3CC4 /* ViewModel.swift */,
 				4F66F8842C24537F004D3CC4 /* AddAccount.swift */,
 				4F4CF10C2C23215F0054CC5A /* AccountView.swift */,
 				4F4CF10A2C231C970054CC5A /* CredentialView.swift */,
@@ -158,6 +161,7 @@
 				4F66F8852C24537F004D3CC4 /* AddAccount.swift in Sources */,
 				4F4CF0FB2C2313220054CC5A /* ChaintechPasswordManagerApp.swift in Sources */,
 				4F4CF10D2C23215F0054CC5A /* AccountView.swift in Sources */,
+				4F66F8892C249A83004D3CC4 /* ViewModel.swift in Sources */,
 				4F66F8872C2454FE004D3CC4 /* ButtonView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -6,8 +6,10 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct AddAccount: View {
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
     @State var accountName = ""
     @State var userName = ""
     @State var password = ""
@@ -30,7 +32,11 @@ struct AddAccount: View {
                 .overlay(Rectangle().stroke(.gray , style: StrokeStyle(lineWidth: 2)))
                 .padding(.bottom)
             Spacer()
-            Button(action: {}, label: {
+            Button(action: {
+                let newCredential = Credentials(id: UUID(), website: accountName, Username: userName, Password: password)
+                modelContext.insert(newCredential)
+                dismiss()
+            }, label: {
                 ButtonView(buttonText: "Add new Account", height: 50, width: 300, backColor: .black)
 //                    .padding(.top)
             })

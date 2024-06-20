@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-
+import SwiftData
 struct CredentialView: View {
     let credentail : Credentials
     var body: some View {
