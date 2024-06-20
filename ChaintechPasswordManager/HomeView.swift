@@ -16,7 +16,7 @@ struct HomeView: View {
     var body: some View {
         NavigationStack{
             Rectangle()
-                .frame(height: 0.5)
+                .frame(height: 3)
                 .padding(.top)
             ScrollView{
                 ForEach(credentials) {credential in
@@ -34,10 +34,11 @@ struct HomeView: View {
                 .sheet(item: $viewmodel.selectedSheetType, content: {sheet in
                     switch sheet{
                         case .add:
-                            AddAccount()
+//                            AddAccount(viewmodel: $viewmodel)
+                            AddAccount(  viewmodel: $viewmodel, accountName: viewmodel.selectedCredential?.website ?? "" , userName: viewmodel.selectedCredential?.Username ?? "", password: viewmodel.selectedCredential?.Password ?? "")
                                 .presentationDetents([.medium])
                         case .edit:
-                            AccountView(credential: viewmodel.selectedCredential ?? Credentials(id: UUID(), website: "", Username: "", Password: ""))
+                            AccountView(viewmodel: $viewmodel, credential: viewmodel.selectedCredential ?? Credentials(id: UUID(), website: "", Username: "", Password: ""))
                                 .presentationDetents([.medium])
                     }
                 })

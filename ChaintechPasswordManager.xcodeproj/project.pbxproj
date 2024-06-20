@@ -64,8 +64,8 @@
 			isa = PBXGroup;
 			children = (
 				4F4CF0FA2C2313220054CC5A /* ChaintechPasswordManagerApp.swift */,
-				4F4CF0FC2C2313220054CC5A /* HomeView.swift */,
 				4F66F8882C249A83004D3CC4 /* ViewModel.swift */,
+				4F4CF0FC2C2313220054CC5A /* HomeView.swift */,
 				4F66F8842C24537F004D3CC4 /* AddAccount.swift */,
 				4F4CF10C2C23215F0054CC5A /* AccountView.swift */,
 				4F4CF10A2C231C970054CC5A /* CredentialView.swift */,

@@ -11,9 +11,9 @@ import SwiftData
 @Model
 class Credentials {
     let id : UUID = UUID()
-    let website : String = ""
-    let Username : String = ""
-    let Password : String = ""
+    var website : String = ""
+    var Username : String = ""
+    var Password : String = ""
     
     init(id: UUID , website : String , Username : String , Password : String) {
         self.id = id

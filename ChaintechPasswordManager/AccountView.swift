@@ -8,8 +8,11 @@
 import SwiftUI
 import SwiftData
 struct AccountView: View {
+    @Binding var viewmodel : ViewModel
     var credential : Credentials
     @State var showPassword = false
+    @Environment(\.modelContext) var modelContext
+    @Environment(\.dismiss) var dismiss
     var body: some View {
         NavigationStack{
             VStack{
@@ -65,14 +68,19 @@ struct AccountView: View {
                 
                 HStack{
                     Button(action: {
-                        
+                        viewmodel.selectedSheetType = .add
                     }, label: {
                         ButtonView(buttonText: "Edit", height: 50, width: 170, backColor: .black)
                             .shadow(radius: 10)
                     })
                     .padding(.leading)
 //                    Spacer()
-                    Button(action: {}, label: {
+                    Button(action: {
+                        modelContext.delete(viewmodel.selectedCredential!)
+                        viewmodel.selectedCredential = nil
+                        dismiss()
+                        
+                    }, label: {
                         ButtonView(buttonText: "Delete", height: 50, width: 170, backColor: .red)
                     })
                     .shadow(radius: 10)
@@ -84,9 +92,12 @@ struct AccountView: View {
         .onAppear{
             UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor : UIColor.systemBlue]
         }
+        .onDisappear{
+            viewmodel.selectedCredential = nil
+        }
     }
 }
 
 #Preview {
-    AccountView(credential: MockData.Credentials1)
+    AccountView(viewmodel: .constant(ViewModel()), credential: MockData.Credentials1)
 }

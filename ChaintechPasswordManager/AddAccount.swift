@@ -10,9 +10,11 @@ import SwiftData
 struct AddAccount: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
-    @State var accountName = ""
-    @State var userName = ""
-    @State var password = ""
+    @Binding var viewmodel : ViewModel
+    @State var accountName : String = ""
+    @State var userName : String = ""
+    @State var password : String = ""
+    
     var body: some View {
         VStack{
             Spacer()
@@ -33,8 +35,12 @@ struct AddAccount: View {
                 .padding(.bottom)
             Spacer()
             Button(action: {
-                let newCredential = Credentials(id: UUID(), website: accountName, Username: userName, Password: password)
-                modelContext.insert(newCredential)
+//                let newCredential = Credentials(id: UUID(), website: accountName, Username: userName, Password: password)
+                viewmodel.selectedCredential?.website = accountName
+                viewmodel.selectedCredential?.Username = userName
+                viewmodel.selectedCredential?.Password = password
+                modelContext.insert(viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: password))
+                viewmodel.selectedCredential = nil
                 dismiss()
             }, label: {
                 ButtonView(buttonText: "Add new Account", height: 50, width: 300, backColor: .black)
@@ -46,5 +52,5 @@ struct AddAccount: View {
 }
 
 #Preview {
-    AddAccount()
+    AddAccount(viewmodel: .constant(ViewModel()))
 }
