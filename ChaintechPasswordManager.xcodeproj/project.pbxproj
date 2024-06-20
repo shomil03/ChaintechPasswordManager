@@ -17,6 +17,7 @@
 		4F66F8852C24537F004D3CC4 /* AddAccount.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8842C24537F004D3CC4 /* AddAccount.swift */; };
 		4F66F8872C2454FE004D3CC4 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8862C2454FE004D3CC4 /* ButtonView.swift */; };
 		4F66F8892C249A83004D3CC4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8882C249A83004D3CC4 /* ViewModel.swift */; };
+		4F66F88E2C24AA76004D3CC4 /* SwiftyRSA in Frameworks */ = {isa = PBXBuildFile; productRef = 4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -38,6 +39,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F66F88E2C24AA76004D3CC4 /* SwiftyRSA in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -101,6 +103,9 @@
 			dependencies = (
 			);
 			name = ChaintechPasswordManager;
+			packageProductDependencies = (
+				4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */,
+			);
 			productName = ChaintechPasswordManager;
 			productReference = 4F4CF0F72C2313220054CC5A /* ChaintechPasswordManager.app */;
 			productType = "com.apple.product-type.application";
@@ -129,6 +134,9 @@
 				Base,
 			);
 			mainGroup = 4F4CF0EE2C2313220054CC5A;
+			packageReferences = (
+				4F66F88C2C24AA76004D3CC4 /* XCRemoteSwiftPackageReference "SwiftyRSA" */,
+			);
 			productRefGroup = 4F4CF0F82C2313220054CC5A /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -370,6 +378,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4F66F88C2C24AA76004D3CC4 /* XCRemoteSwiftPackageReference "SwiftyRSA" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TakeScoop/SwiftyRSA.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.8.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F66F88C2C24AA76004D3CC4 /* XCRemoteSwiftPackageReference "SwiftyRSA" */;
+			productName = SwiftyRSA;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4F4CF0EF2C2313220054CC5A /* Project object */;
 }

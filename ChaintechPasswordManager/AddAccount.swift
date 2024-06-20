@@ -7,6 +7,8 @@
 
 import SwiftUI
 import SwiftData
+import SwiftyRSA
+
 struct AddAccount: View {
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
@@ -15,6 +17,7 @@ struct AddAccount: View {
     @State var userName : String = ""
     @State var password : String = ""
     @State var showingalert = false
+        
     var body: some View {
         VStack{
             Spacer()
@@ -36,12 +39,14 @@ struct AddAccount: View {
             Spacer()
             Button(action: {
                 if(validate()){
-                    viewmodel.selectedCredential?.website = accountName
-                    viewmodel.selectedCredential?.Username = userName
-                    viewmodel.selectedCredential?.Password = password
-                    modelContext.insert(viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: password))
-                    viewmodel.selectedCredential = nil
-                    dismiss()
+                    if let encryptedPassword = encryptRSA(data: password, publicKey: viewmodel.publicKey) {
+                        viewmodel.selectedCredential?.website = accountName
+                        viewmodel.selectedCredential?.Username = userName
+                        viewmodel.selectedCredential?.Password = password
+                        modelContext.insert(viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: password))
+                        viewmodel.selectedCredential = nil
+                        dismiss()
+                    }
                 }
                 else{
                     showingalert = true
@@ -62,6 +67,22 @@ struct AddAccount: View {
         }
         return true
     }
+    func encryptRSA(data: String, publicKey: PublicKey?) -> String? {
+        guard let publicKey = publicKey else {
+            print("Public key not available")
+            return nil
+        }
+        
+        do {
+            let clear = try ClearMessage(string: data, using: .utf8)
+            let encrypted = try clear.encrypted(with: publicKey, padding: .PKCS1)
+            return encrypted.base64String
+        } catch {
+            print("RSA encryption failed: \(error.localizedDescription)")
+            return nil
+        }
+    }
+    
 }
 
 #Preview {
