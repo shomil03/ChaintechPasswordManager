@@ -7,6 +7,8 @@
 
 import Foundation
 import SwiftyRSA
+import KeychainAccess
+
 @Observable
 public final class ViewModel{
     enum sheetType : String , Identifiable {
@@ -17,8 +19,8 @@ public final class ViewModel{
     var selectedSheetType : sheetType?
     var selectedCredential : Credentials?
     
-    private(set) var publicKey: PublicKey?
-    private(set) var privateKey: PrivateKey?
+    let publicKey: PublicKey
+    let privateKey: PrivateKey
     
     init() {
         do {
@@ -32,12 +34,23 @@ public final class ViewModel{
     }
 }
 func generateRSAKeys() throws -> (publicKey: PublicKey, privateKey: PrivateKey) {
-    // Generate key pair (usually done securely and stored)
     let keyPair = try SwiftyRSA.generateRSAKeyPair(sizeInBits: 2048)
-    
-    // Extract public and private keys
-    let publicKey = keyPair.publicKey
-    let privateKey = keyPair.privateKey
-    
-    return (publicKey, privateKey)
+    return (keyPair.publicKey, keyPair.privateKey)
 }
+
+func saveRSAKeys(publicKey: PublicKey, privateKey: PrivateKey) throws {
+    let keychain = Keychain(service: "Singh.Shomil.chaintechpasswordmanager")
+    try keychain.set(publicKey.base64String(), key: "publicKey")
+    try keychain.set(privateKey.base64String(), key: "privateKey")
+}
+
+func loadRSAKeys() throws -> (publicKey: PublicKey, privateKey: PrivateKey)? {
+    let keychain = Keychain(service: "com.yourapp.chaintechpasswordmanager")
+    guard let publicKeyString = try keychain.get("publicKey"),
+          let privateKeyString = try keychain.get("privateKey") else {
+        return nil
+    }
+    let publicKey = try PublicKey(base64Encoded: publicKeyString)
+    let privateKey = try PrivateKey(base64Encoded: privateKeyString)
+    return (publicKey, privateKey)
+    }

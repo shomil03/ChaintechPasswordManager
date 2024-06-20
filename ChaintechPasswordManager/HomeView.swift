@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import SwiftyRSA
 
 struct HomeView: View {
     @Environment(\.modelContext) var modelContext
@@ -60,6 +61,11 @@ struct HomeView: View {
             .navigationTitle("Password Manager")
             .preferredColorScheme(.light)
         }
+    }
+    func decryptPassword(_ encryptedPassword: String) throws -> String {
+        let encrypted = try EncryptedMessage(base64Encoded: encryptedPassword)
+        let clear = try encrypted.decrypted(with: viewmodel.privateKey, padding: .PKCS1)
+        return try clear.string(encoding: .utf8)
     }
 }
 

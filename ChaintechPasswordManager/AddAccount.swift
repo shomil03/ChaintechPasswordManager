@@ -42,8 +42,8 @@ struct AddAccount: View {
                     if let encryptedPassword = encryptRSA(data: password, publicKey: viewmodel.publicKey) {
                         viewmodel.selectedCredential?.website = accountName
                         viewmodel.selectedCredential?.Username = userName
-                        viewmodel.selectedCredential?.Password = password
-                        modelContext.insert(viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: password))
+                        viewmodel.selectedCredential?.Password = encryptedPassword
+                        modelContext.insert(viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: encryptedPassword))
                         viewmodel.selectedCredential = nil
                         dismiss()
                     }

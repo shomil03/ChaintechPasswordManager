@@ -7,10 +7,13 @@
 
 import SwiftUI
 import SwiftData
+import SwiftyRSA
+
 struct AccountView: View {
     @Binding var viewmodel : ViewModel
     var credential : Credentials
     @State var showPassword = false
+    @State var decryptedPassword: String = "*******"
     @Environment(\.modelContext) var modelContext
     @Environment(\.dismiss) var dismiss
     var body: some View {
@@ -49,7 +52,7 @@ struct AccountView: View {
                             .font(.callout)
                             .foregroundStyle(Color.gray)
                             .opacity(0.7)
-                        Text(showPassword ?  credential.Password : "*******")
+                        Text(showPassword ? decryptedPassword : "*******")
                             .font(.title)
                             .fontWeight(.semibold)
                             .animation(.easeIn , value: showPassword)
@@ -57,7 +60,14 @@ struct AccountView: View {
                     .padding()
                     Spacer()
                     
-                    Button(action: {showPassword.toggle()}, label: {
+                    Button(action: {
+                        showPassword.toggle()
+                        if showPassword {
+                            decryptedPassword = (try? decryptPassword(credential.Password)) ?? "Error"
+                        } else {
+                            decryptedPassword = "*******"
+                        }
+                    }, label: {
                         Label("", systemImage: showPassword ? "eye.circle" : "eye.slash")
                             .labelsHidden()
                             .foregroundStyle(Color.gray)
@@ -95,6 +105,11 @@ struct AccountView: View {
         .onDisappear{
             viewmodel.selectedCredential = nil
         }
+    }
+    func decryptPassword(_ encryptedPassword: String) throws -> String {
+        let encrypted = try EncryptedMessage(base64Encoded: encryptedPassword)
+        let clear = try encrypted.decrypted(with: viewmodel.privateKey, padding: .PKCS1)
+        return try clear.string(encoding: .utf8)
     }
 }
 

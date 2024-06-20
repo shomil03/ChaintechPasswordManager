@@ -18,7 +18,23 @@
 		4F66F8872C2454FE004D3CC4 /* ButtonView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8862C2454FE004D3CC4 /* ButtonView.swift */; };
 		4F66F8892C249A83004D3CC4 /* ViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F66F8882C249A83004D3CC4 /* ViewModel.swift */; };
 		4F66F88E2C24AA76004D3CC4 /* SwiftyRSA in Frameworks */ = {isa = PBXBuildFile; productRef = 4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */; };
+		4F66F88F2C24B113004D3CC4 /* SwiftyRSA in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
+		4F66F8932C24B90F004D3CC4 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 4F66F8922C24B90F004D3CC4 /* KeychainAccess */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		4F66F8902C24B113004D3CC4 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				4F66F88F2C24B113004D3CC4 /* SwiftyRSA in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		4F4CF0F72C2313220054CC5A /* ChaintechPasswordManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ChaintechPasswordManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -39,6 +55,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F66F8932C24B90F004D3CC4 /* KeychainAccess in Frameworks */,
 				4F66F88E2C24AA76004D3CC4 /* SwiftyRSA in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -97,6 +114,7 @@
 				4F4CF0F32C2313220054CC5A /* Sources */,
 				4F4CF0F42C2313220054CC5A /* Frameworks */,
 				4F4CF0F52C2313220054CC5A /* Resources */,
+				4F66F8902C24B113004D3CC4 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -105,6 +123,7 @@
 			name = ChaintechPasswordManager;
 			packageProductDependencies = (
 				4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */,
+				4F66F8922C24B90F004D3CC4 /* KeychainAccess */,
 			);
 			productName = ChaintechPasswordManager;
 			productReference = 4F4CF0F72C2313220054CC5A /* ChaintechPasswordManager.app */;
@@ -136,6 +155,7 @@
 			mainGroup = 4F4CF0EE2C2313220054CC5A;
 			packageReferences = (
 				4F66F88C2C24AA76004D3CC4 /* XCRemoteSwiftPackageReference "SwiftyRSA" */,
+				4F66F8912C24B90F004D3CC4 /* XCRemoteSwiftPackageReference "KeychainAccess" */,
 			);
 			productRefGroup = 4F4CF0F82C2313220054CC5A /* Products */;
 			projectDirPath = "";
@@ -388,6 +408,14 @@
 				minimumVersion = 1.8.0;
 			};
 		};
+		4F66F8912C24B90F004D3CC4 /* XCRemoteSwiftPackageReference "KeychainAccess" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/kishikawakatsumi/KeychainAccess";
+			requirement = {
+				branch = master;
+				kind = branch;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -395,6 +423,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 4F66F88C2C24AA76004D3CC4 /* XCRemoteSwiftPackageReference "SwiftyRSA" */;
 			productName = SwiftyRSA;
+		};
+		4F66F8922C24B90F004D3CC4 /* KeychainAccess */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F66F8912C24B90F004D3CC4 /* XCRemoteSwiftPackageReference "KeychainAccess" */;
+			productName = KeychainAccess;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
