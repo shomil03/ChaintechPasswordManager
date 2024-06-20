@@ -8,18 +8,21 @@
 import SwiftUI
 
 struct HomeView: View {
-    @State private var isShowingsheet = false
+    enum sheetType : String , Identifiable {
+        case edit , add
+        var id: String { rawValue }
+    }
+    @State var isShowingsheet : sheetType?
     var body: some View {
         NavigationStack(){
             Rectangle()
                 .frame(height: 0.5)
                 .padding(.top)
-//                .padding(.bottom , -5)
             ScrollView{
                 ForEach(MockData.allCredentials , id: \.website) {credential in
                     
                     Button(action: {
-                        isShowingsheet.toggle()
+                        isShowingsheet = .edit
                     }, label: {
                      CredentialView(credentail: credential)
                     })
@@ -28,17 +31,23 @@ struct HomeView: View {
                     
                     
                     
-                    .sheet(isPresented: $isShowingsheet){
-                        AccountView(credential: credential)
-                            .presentationDetents([.medium])
-                    }
+                    .sheet(item:  $isShowingsheet, content: {sheet in
+                        switch sheet{
+                            case .edit:
+                                AccountView(credential: credential)
+                                    .presentationDetents([.medium])
+                            case .add:
+                                AddAccount()
+                                    .presentationDetents([.medium])
+                        }
+                    })
                     
                     
                 }
                 
             }
             .overlay(
-                Button(action: {isShowingsheet.toggle()}, label: {
+                Button(action: {isShowingsheet = .add}, label: {
                     Image(systemName: "plus.circle.fill")
                         .font(.system(size: 50))
                 })

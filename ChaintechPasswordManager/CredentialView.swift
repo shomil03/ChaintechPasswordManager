@@ -31,8 +31,7 @@ struct CredentialView: View {
         .frame(height: 80)
 //        .background(Color.red)
         .overlay( RoundedRectangle(cornerRadius: 40)
-            .strokeBorder(.black ,style: StrokeStyle(lineWidth: 0.3) ))
-        .shadow(radius: 10)
+            .strokeBorder(.black ,style: StrokeStyle(lineWidth: 3) ))
         .padding(.horizontal,25)
     }
 }
