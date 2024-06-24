@@ -19,6 +19,7 @@ struct AccountView: View {
     var body: some View {
         NavigationStack{
             VStack{
+//                Text("\(credential.id)")
                 HStack {
                     VStack(alignment:.leading){
                         Text("Account type")
@@ -101,9 +102,6 @@ struct AccountView: View {
         }
         .onAppear{
             UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor : UIColor.systemBlue]
-        }
-        .onDisappear{
-            viewmodel.selectedCredential = nil
         }
     }
     func decryptPassword(_ encryptedPassword: String) throws -> String {

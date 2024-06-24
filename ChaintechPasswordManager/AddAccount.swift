@@ -17,7 +17,6 @@ struct AddAccount: View {
     @State var userName : String = ""
     @State var password : String = ""
     @State var showingalert = false
-        
     var body: some View {
         VStack{
             Spacer()
@@ -43,6 +42,7 @@ struct AddAccount: View {
                         viewmodel.selectedCredential?.website = accountName
                         viewmodel.selectedCredential?.Username = userName
                         viewmodel.selectedCredential?.Password = encryptedPassword
+                        printCredential(credential: viewmodel.selectedCredential)
                         modelContext.insert(viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: encryptedPassword))
                         viewmodel.selectedCredential = nil
                         dismiss()
@@ -82,6 +82,17 @@ struct AddAccount: View {
             return nil
         }
     }
+    func decryptPassword(_ encryptedPassword: String) throws -> String {
+        let encrypted = try EncryptedMessage(base64Encoded: encryptedPassword)
+        let clear = try encrypted.decrypted(with: viewmodel.privateKey, padding: .PKCS1)
+        return try clear.string(encoding: .utf8)
+    }
+    func printCredential(credential : Credentials?) {
+        print(credential?.website ?? "Na")
+        print(credential?.Username ?? "Na")
+        
+    }
+
     
 }
 

@@ -39,13 +39,13 @@ func generateRSAKeys() throws -> (publicKey: PublicKey, privateKey: PrivateKey) 
 }
 
 func saveRSAKeys(publicKey: PublicKey, privateKey: PrivateKey) throws {
-    let keychain = Keychain(service: "Singh.Shomil.chaintechpasswordmanager")
+    let keychain = Keychain(service: "Singh.Shomil.ChaintechPasswordManager")
     try keychain.set(publicKey.base64String(), key: "publicKey")
     try keychain.set(privateKey.base64String(), key: "privateKey")
 }
 
 func loadRSAKeys() throws -> (publicKey: PublicKey, privateKey: PrivateKey)? {
-    let keychain = Keychain(service: "com.yourapp.chaintechpasswordmanager")
+    let keychain = Keychain(service: "Singh.Shomil.ChaintechPasswordManager")
     guard let publicKeyString = try keychain.get("publicKey"),
           let privateKeyString = try keychain.get("privateKey") else {
         return nil

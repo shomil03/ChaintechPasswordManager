@@ -20,10 +20,11 @@ struct HomeView: View {
                 .frame(height: 3)
                 .padding(.top)
             ScrollView{
-                ForEach(credentials) {credential in
+                ForEach(credentials , id: \.id) {credential in
                     
                     Button(action: {
                         viewmodel.selectedCredential = credential
+                        printCredential(credential: viewmodel.selectedCredential)
                         viewmodel.selectedSheetType = .edit
                         viewmodel.isShowingsheet = true
                     }, label: {
@@ -36,7 +37,7 @@ struct HomeView: View {
                     switch sheet{
                         case .add:
 //                            AddAccount(viewmodel: $viewmodel)
-                            AddAccount(  viewmodel: $viewmodel, accountName: viewmodel.selectedCredential?.website ?? "" , userName: viewmodel.selectedCredential?.Username ?? "", password: viewmodel.selectedCredential?.Password ?? "")
+                            AddAccount(  viewmodel: $viewmodel, accountName: viewmodel.selectedCredential?.website ?? "" , userName: viewmodel.selectedCredential?.Username ?? "", password: (try? decryptPassword(viewmodel.selectedCredential?.Password ?? "Error")) ?? "")
                                 .presentationDetents([.medium])
                         case .edit:
                             AccountView(viewmodel: $viewmodel, credential: viewmodel.selectedCredential ?? Credentials(id: UUID(), website: "", Username: "", Password: ""))
@@ -48,6 +49,7 @@ struct HomeView: View {
             .frame(maxWidth: .infinity)
             .overlay(
                 Button(action: {
+                    viewmodel.selectedCredential = nil
                     viewmodel.selectedSheetType = .add
                     viewmodel.isShowingsheet = true
                     }, label: {
@@ -66,6 +68,11 @@ struct HomeView: View {
         let encrypted = try EncryptedMessage(base64Encoded: encryptedPassword)
         let clear = try encrypted.decrypted(with: viewmodel.privateKey, padding: .PKCS1)
         return try clear.string(encoding: .utf8)
+    }
+    func printCredential(credential : Credentials?) {
+        print(credential?.website ?? "Na")
+        print(credential?.Username ?? "Na")
+        
     }
 }
 
