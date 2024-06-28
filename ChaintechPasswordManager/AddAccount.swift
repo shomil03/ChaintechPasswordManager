@@ -38,14 +38,17 @@ struct AddAccount: View {
             Spacer()
             Button(action: {
                 if(validate()){
-                    if let encryptedPassword = encryptRSA(data: password, publicKey: viewmodel.publicKey) {
-                        viewmodel.selectedCredential?.website = accountName
-                        viewmodel.selectedCredential?.Username = userName
-                        viewmodel.selectedCredential?.Password = encryptedPassword
-                        printCredential(credential: viewmodel.selectedCredential)
-                        modelContext.insert(viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: encryptedPassword))
+                    do {
+                        let encryptedPassword = try viewmodel.encrypt(password: password)
+                        let credential = viewmodel.selectedCredential ?? Credentials(id: UUID(), website: accountName, Username: userName, Password: encryptedPassword)
+                        credential.website = accountName
+                        credential.Username = userName
+                        credential.Password = encryptedPassword
+                        modelContext.insert(credential)
                         viewmodel.selectedCredential = nil
                         dismiss()
+                    } catch {
+                        showingalert = true
                     }
                 }
                 else{
@@ -67,33 +70,19 @@ struct AddAccount: View {
         }
         return true
     }
-    func encryptRSA(data: String, publicKey: PublicKey?) -> String? {
-        guard let publicKey = publicKey else {
-            print("Public key not available")
-            return nil
-        }
-        
-        do {
-            let clear = try ClearMessage(string: data, using: .utf8)
-            let encrypted = try clear.encrypted(with: publicKey, padding: .PKCS1)
-            return encrypted.base64String
-        } catch {
-            print("RSA encryption failed: \(error.localizedDescription)")
-            return nil
-        }
-    }
-    func decryptPassword(_ encryptedPassword: String) throws -> String {
-        let encrypted = try EncryptedMessage(base64Encoded: encryptedPassword)
-        let clear = try encrypted.decrypted(with: viewmodel.privateKey, padding: .PKCS1)
-        return try clear.string(encoding: .utf8)
-    }
     func printCredential(credential : Credentials?) {
         print(credential?.website ?? "Na")
         print(credential?.Username ?? "Na")
-        
+        print(credential?.Password ?? "Na")
+        do{
+          let encryptPassword = try viewmodel.encrypt(password: password)
+            print(encryptPassword)
+            let dp = try viewmodel.decrypt(encryptedPassword: encryptPassword)
+            print(dp)
+        }catch{
+            print(error)
+        }
     }
-
-    
 }
 
 #Preview {

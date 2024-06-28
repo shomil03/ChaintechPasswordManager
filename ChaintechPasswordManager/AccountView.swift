@@ -19,14 +19,12 @@ struct AccountView: View {
     var body: some View {
         NavigationStack{
             VStack{
-//                Text("\(credential.id)")
                 HStack {
                     VStack(alignment:.leading){
                         Text("Account type")
                             .font(.callout)
                             .foregroundStyle(Color.gray)
                             .opacity(0.7)
-//                            .padding(.vertical ,1)
                         Text(credential.website)
                             .font(.title)
                             .fontWeight(.semibold)
@@ -64,7 +62,8 @@ struct AccountView: View {
                     Button(action: {
                         showPassword.toggle()
                         if showPassword {
-                            decryptedPassword = (try? decryptPassword(credential.Password)) ?? "Error"
+                            decryptedPassword = (try? viewmodel.decrypt(encryptedPassword: credential.Password)) ?? "Error"
+                            
                         } else {
                             decryptedPassword = "*******"
                         }
@@ -85,7 +84,6 @@ struct AccountView: View {
                             .shadow(radius: 10)
                     })
                     .padding(.leading)
-//                    Spacer()
                     Button(action: {
                         modelContext.delete(viewmodel.selectedCredential!)
                         viewmodel.selectedCredential = nil
@@ -103,11 +101,6 @@ struct AccountView: View {
         .onAppear{
             UINavigationBar.appearance().largeTitleTextAttributes = [.foregroundColor : UIColor.systemBlue]
         }
-    }
-    func decryptPassword(_ encryptedPassword: String) throws -> String {
-        let encrypted = try EncryptedMessage(base64Encoded: encryptedPassword)
-        let clear = try encrypted.decrypted(with: viewmodel.privateKey, padding: .PKCS1)
-        return try clear.string(encoding: .utf8)
     }
 }
 
