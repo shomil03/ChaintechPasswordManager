@@ -15,6 +15,7 @@ struct AddAccount: View {
     @Binding var viewmodel : ViewModel
     @State var accountName : String = ""
     @State var userName : String = ""
+    @State var divider : Int = 1
     @State var password : String = ""
     @State var showingalert = false
     var body: some View {
@@ -35,6 +36,14 @@ struct AddAccount: View {
                 .frame(height: 50)
                 .overlay(Rectangle().stroke(.gray , style: StrokeStyle(lineWidth: 2)))
                 .padding(.bottom)
+            if(password.count > 0){
+                HStack{
+                    PasswordView(password: $password)
+                        .animation(.spring, value: divider)
+                    Spacer()
+                    PasswordStregthView(password: $password)
+                }
+            }
             Spacer()
             Button(action: {
                 if(validate()){
@@ -62,6 +71,7 @@ struct AddAccount: View {
         .alert("Error", isPresented: $showingalert, actions: {}, message: {
             Text("All fields are required")
         })
+
         .padding()
     }
     func validate() -> Bool{

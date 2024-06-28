@@ -67,3 +67,52 @@ public final class ViewModel {
         return try clear.string(encoding: .utf8)
     }
 }
+func PasswordStrength(_ number : Int) -> String {
+    if number == 1 {
+        return "Strong"
+    }
+    if number == 2 {
+        return "Moderate"
+    }
+    return "Weak"
+}
+func validatePassword(_ password : String) -> Int {
+    var passed = 0
+    var upperCase = false
+    var lowerCase = false
+    var symbol = false
+    var digit = false
+    for character in password {
+        if "QWERTYUIOPASDFGHJKLZXCVBNM".contains(character) {
+            upperCase = true
+        }
+        if "qwertyuiopasdfghjklzxcvbnm".contains(character) {
+            lowerCase = true
+        }
+        if "!@#$%^&*()_+=-[]}{;/.,?><".contains(character) {
+            symbol = true
+        }
+        if "1234567890".contains(character) {
+            digit = true
+        }
+    }
+    if upperCase {
+        passed += 1
+    }
+    if lowerCase {
+        passed += 1
+    }
+    if digit {
+        passed += 1
+    }
+    if symbol {
+        passed += 1
+    }
+    if password.count < 8 || passed <= 2{
+        return 4
+    }
+    if passed <= 3{
+        return 2
+    }
+    return 1
+}

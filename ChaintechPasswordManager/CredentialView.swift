@@ -6,7 +6,7 @@
 //
 
 import SwiftUI
-import SwiftData
+//import SwiftData
 struct CredentialView: View {
     let credentail : Credentials
     var body: some View {
@@ -29,9 +29,8 @@ struct CredentialView: View {
         }
         .padding()
         .frame(height: 80)
-//        .background(Color.red)
         .overlay( RoundedRectangle(cornerRadius: 40)
-            .strokeBorder(.black ,style: StrokeStyle(lineWidth: 3) ))
+            .strokeBorder(.black ,style: StrokeStyle(lineWidth: 4) ))
         .padding(.horizontal,25)
     }
 }

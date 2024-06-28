@@ -20,6 +20,7 @@
 		4F66F88E2C24AA76004D3CC4 /* SwiftyRSA in Frameworks */ = {isa = PBXBuildFile; productRef = 4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */; };
 		4F66F88F2C24B113004D3CC4 /* SwiftyRSA in Embed Frameworks */ = {isa = PBXBuildFile; productRef = 4F66F88D2C24AA76004D3CC4 /* SwiftyRSA */; settings = {ATTRIBUTES = (CodeSignOnCopy, ); }; };
 		4F66F8932C24B90F004D3CC4 /* KeychainAccess in Frameworks */ = {isa = PBXBuildFile; productRef = 4F66F8922C24B90F004D3CC4 /* KeychainAccess */; };
+		4FE9228D2C2EF0D900F3CE4B /* PasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4FE9228C2C2EF0D900F3CE4B /* PasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -48,6 +49,7 @@
 		4F66F8842C24537F004D3CC4 /* AddAccount.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAccount.swift; sourceTree = "<group>"; };
 		4F66F8862C2454FE004D3CC4 /* ButtonView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonView.swift; sourceTree = "<group>"; };
 		4F66F8882C249A83004D3CC4 /* ViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewModel.swift; sourceTree = "<group>"; };
+		4FE9228C2C2EF0D900F3CE4B /* PasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PasswordView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -89,6 +91,7 @@
 				4F4CF10C2C23215F0054CC5A /* AccountView.swift */,
 				4F4CF10A2C231C970054CC5A /* CredentialView.swift */,
 				4F66F8862C2454FE004D3CC4 /* ButtonView.swift */,
+				4FE9228C2C2EF0D900F3CE4B /* PasswordView.swift */,
 				4F4CF1082C2314510054CC5A /* CredentailModel.swift */,
 				4F4CF0FE2C2313240054CC5A /* Assets.xcassets */,
 				4F4CF1002C2313240054CC5A /* Preview Content */,
@@ -184,6 +187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F4CF1092C2314510054CC5A /* CredentailModel.swift in Sources */,
+				4FE9228D2C2EF0D900F3CE4B /* PasswordView.swift in Sources */,
 				4F4CF10B2C231C970054CC5A /* CredentialView.swift in Sources */,
 				4F4CF0FD2C2313220054CC5A /* HomeView.swift in Sources */,
 				4F66F8852C24537F004D3CC4 /* AddAccount.swift in Sources */,
