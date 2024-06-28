@@ -21,7 +21,7 @@ struct ButtonView: View {
             .background(backColor)
             .clipShape(RoundedRectangle(cornerRadius: (width/height)*10))
             .foregroundStyle(Color.white)
-            .shadow(color: Color.gray, radius: 7, x: -10, y: -5)
+//            .shadow(color: Color.gray, radius: 7, x: -10, y: -5)
             
         
         

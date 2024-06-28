@@ -18,6 +18,10 @@ struct AddAccount: View {
     @State var divider : Int = 1
     @State var password : String = ""
     @State var showingalert = false
+    enum focusStates : Hashable{
+        case account,username ,newpassword
+    }
+    @FocusState var focus : focusStates?
     var body: some View {
         VStack{
             Spacer()
@@ -26,16 +30,32 @@ struct AddAccount: View {
                 .frame(height: 50)
                 .overlay(Rectangle().stroke(.gray , style: StrokeStyle(lineWidth: 2)))
                 .padding(.bottom)
+                .focused($focus, equals: .account)
+                .onSubmit {
+                    focus = .username
+                }
+                .submitLabel(.next)
             TextField("Username/Email", text: $userName)
                 .padding()
                 .frame(height: 50)
                 .overlay(Rectangle().stroke(.gray , style: StrokeStyle(lineWidth: 2)))
                 .padding(.bottom)
+                .focused($focus , equals: .username)
+                .onSubmit {
+                    focus = .newpassword
+                }
+                .submitLabel(.next)
             TextField("Password", text: $password)
+                .textContentType(.password)
                 .padding()
                 .frame(height: 50)
                 .overlay(Rectangle().stroke(.gray , style: StrokeStyle(lineWidth: 2)))
                 .padding(.bottom)
+                .focused($focus , equals: .newpassword)
+                .onSubmit {
+                    focus = nil
+                }
+                .submitLabel(.done)
             if(password.count > 0){
                 HStack{
                     PasswordView(password: $password)
